@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>馒头AI · 试课反馈生成器</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div class="brand"><img src="assets/logo-zh.png" alt="馒头AI" /></div>
+      <div><p class="eyebrow">TRIAL CLASS STUDIO</p><h1>把一次好课，<em>认真记录下来。</em></h1></div>
+      <p class="header-note">填写信息，右侧实时预览，一键生成适合分享的高清 PNG。</p>
+    </header>
+
+    <div class="workspace">
+      <form class="editor" id="feedbackForm">
+        <div class="editor-title"><span>编辑反馈</span><span class="status-dot">实时同步</span></div>
+        <fieldset>
+          <legend>学生与课程</legend>
+          <div class="field-grid">
+            <label>学生姓名<input id="studentName" value="小宇" maxlength="12" /></label>
+            <label>试听课名称<input id="trialName" value="Roblox" maxlength="24" /></label>
+            <label>日期与时间<input id="classTime" type="datetime-local" /></label>
+            <label>试听课程老师<input id="teacherName" value="Mia老师" maxlength="16" /></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>教师评价</legend>
+          <label>老师的反馈原文<textarea id="teacherFeedback" rows="7" maxlength="420">小宇今天的课堂状态非常棒！能够快速理解角色移动和坐标的关系，并主动尝试用不同方式完成任务。遇到问题时愿意先观察、再调试，展现出了很好的逻辑思维和创造力。期待下次看到你搭建出更有趣的世界！</textarea></label>
+          <div class="char-count"><span id="charCount">0</span> / 420</div>
+        </fieldset>
+        <fieldset>
+          <legend>课程建议</legend>
+          <label>推荐课程<select id="courseSelect"></select></label>
+          <label>体系级别<input id="courseLevel" maxlength="48" /></label>
+          <label>建议说明<textarea id="courseAdvice" rows="4" maxlength="220"></textarea></label>
+        </fieldset>
+        <button class="download-btn" id="downloadBtn" type="button"><span>生成并下载 PNG</span><span aria-hidden="true">↓</span></button>
+        <p class="download-hint">导出尺寸 1667 × 2500 px，与品牌模板一致</p>
+      </form>
+
+      <section class="preview-panel" aria-label="反馈图预览">
+        <div class="preview-toolbar"><span>反馈图预览</span><button id="resetBtn" type="button">恢复示例</button></div>
+        <canvas id="previewCanvas" width="1667" height="2500"></canvas>
+      </section>
+    </div>
+  </main>
+  <div class="toast" id="toast" role="status">图片已下载</div>
+  <script src="app.js"></script>
+</body>
+</html>
