@@ -5,3 +5,4 @@
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .brand img{display:block;width:165px;height:auto}.brand-mark{display:none}
 .download-btn:disabled{cursor:wait;opacity:.72;transform:none}.toast.error{background:#a63d31}
+.header-actions{display:flex;align-items:flex-end;gap:16px}.lang-toggle{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font:800 12px/1 inherit;padding:10px 13px;cursor:pointer;box-shadow:0 5px 14px rgba(23,50,77,.08)}.lang-toggle:hover{border-color:var(--orange);color:var(--orange-dark)}
