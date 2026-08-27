@@ -36,7 +36,7 @@ function measure(value,size,weight='500',family='"Microsoft YaHei","PingFang SC"
 function fittedText(value,x,y,maxWidth,size,minSize,weight='500',color='#3A372F'){let fitted=size;while(fitted>minSize&&measure(value,fitted,weight)>maxWidth)fitted--;text(value,x,y,fitted,weight,color)}
 function wrap(value,x,y,maxWidth,lineHeight,maxLines,size=38,weight='500',color='#3A372F'){ctx.font=`${weight} ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;ctx.fillStyle=color;ctx.textAlign='left';const lines=[];let line='';for(const ch of [...(value||'')]){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=ch}else line=next}if(line)lines.push(line);if(lines.length>maxLines){lines.length=maxLines;let last=lines[maxLines-1];while(ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);lines[maxLines-1]=last+'…'}lines.forEach((item,index)=>ctx.fillText(item,x,y+index*lineHeight));return lines.length}
 function feedbackLines(value,maxWidth,size){ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;const lines=[];for(const paragraph of (value||'').replace(/\u00a0/g,' ').split(/\r?\n/)){if(!paragraph){if(lines.length&&lines.at(-1)!=='')lines.push('');continue}let line='';for(const ch of [...paragraph]){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){const space=line.lastIndexOf(' ');if(space>0&&/[A-Za-z]/.test(line)){lines.push(line.slice(0,space));line=line.slice(space+1)+ch}else{lines.push(line);line=ch}}else line=next}if(line)lines.push(line)}return lines}
-function drawFeedback(value,x,y,maxWidth){const maxLines=14;let size=lang==='en'?36:37,lines=feedbackLines(value,maxWidth,size);while(lines.length>maxLines&&size>22){size--;lines=feedbackLines(value,maxWidth,size)}if(lines.length>maxLines){lines.length=maxLines;let last=lines.at(-1);ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;while(ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);lines[maxLines-1]=last+'…'}const lineHeight=lines.length>1?Math.min(Math.round(size*1.48),Math.floor(510/(lines.length-1))):Math.round(size*1.48);ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;ctx.fillStyle='#3A372F';ctx.textAlign='left';lines.forEach((line,index)=>ctx.fillText(line,x,y+index*lineHeight))}
+function drawFeedback(value,x,y,maxWidth){const maxLines=18;let size=lang==='en'?36:37,lines=feedbackLines(value,maxWidth,size);while(lines.length>maxLines&&size>22){size--;lines=feedbackLines(value,maxWidth,size)}if(lines.length>maxLines){lines.length=maxLines;let last=lines.at(-1);ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;while(ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);lines[maxLines-1]=last+'…'}const lineHeight=lines.length>1?Math.min(Math.round(size*1.48),Math.floor(700/(lines.length-1))):Math.round(size*1.48);ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;ctx.fillStyle='#3A372F';ctx.textAlign='left';lines.forEach((line,index)=>ctx.fillText(line,x,y+index*lineHeight))}
 function formatDate(){const raw=$('classTime').value;if(!raw)return lang==='zh'?'待填写':'Not provided';const d=new Date(raw);if(lang==='en')return `${d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}  ${d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}`;return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日  ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`}
 function draw(){
   ctx.clearRect(0,0,1667,2500);ctx.fillStyle='#fff';ctx.fillRect(0,0,1667,2500);
@@ -50,17 +50,17 @@ function draw(){
   ctx.beginPath();ctx.moveTo(84,start+4*row);ctx.lineTo(right,start+4*row);ctx.stroke();
   ctx.strokeStyle='#FFC824';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(84,835);ctx.lineTo(right,835);ctx.stroke();
   text(lang==='zh'?'老师评价':'TEACHER FEEDBACK',84,907,30,'800','#FF5B24');
-  rr(84,947,1499,697,18,'#FFFCF0');
+  rr(84,947,1499,880,18,'#FFFCF0');
   drawFeedback($('teacherFeedback').value,120,1020,1427);
-  ctx.strokeStyle='#FFC824';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(120,1568);ctx.lineTo(165,1568);ctx.stroke();
-  text(`${lang==='zh'?'试听课老师':'Trial Instructor'} ${$('teacherName').value||'—'}`,178,1581,28,'700','#6B6760');
-  rr(84,1684,1499,230,18,'#fff','#E7E3DB',2);
-  rr(120,1749,lang==='zh'?210:275,92,46,'#FFC824');text(lang==='zh'?'★ 课程建议':'★ RECOMMENDED',lang==='zh'?225:257,1807,lang==='zh'?27:24,'800','#1C1B19','center');
-  const recX=lang==='zh'?368:430,prefix=lang==='zh'?'继续学习':'Continue with';text(prefix,recX,1769,35,'500','#3A372F');
-  const courseX=recX+measure(prefix,35,'500')+24;text($('courseSelect').value,courseX,1769,40,'800','#FF5B24');
+  ctx.strokeStyle='#FFC824';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(120,1780);ctx.lineTo(165,1780);ctx.stroke();
+  text(`${lang==='zh'?'试听课老师':'Trial Instructor'} ${$('teacherName').value||'—'}`,178,1793,28,'700','#6B6760');
+  rr(84,1860,1499,230,18,'#fff','#E7E3DB',2);
+  rr(120,1925,lang==='zh'?210:275,92,46,'#FFC824');text(lang==='zh'?'★ 课程建议':'★ RECOMMENDED',lang==='zh'?225:257,1983,lang==='zh'?27:24,'800','#1C1B19','center');
+  const recX=lang==='zh'?368:430,prefix=lang==='zh'?'继续学习':'Continue with';text(prefix,recX,1945,35,'500','#3A372F');
+  const courseX=recX+measure(prefix,35,'500')+24;text($('courseSelect').value,courseX,1945,40,'800','#FF5B24');
   const courseWidth=measure($('courseSelect').value,40,'800');
-  if($('courseLevel').value){const levelText=lang==='zh'?`（馒头AI体系中为 ${$('courseLevel').value} 级别）`:`(MindDo.AI Curriculum: ${$('courseLevel').value})`;fittedText(levelText,courseX+courseWidth+20,1769,1533-courseX-courseWidth-20,27,20,'700','#6B6760')}
-  wrap($('courseAdvice').value,recX,1832,1533-recX,50,2,lang==='zh'?34:31,'500','#3A372F');
+  if($('courseLevel').value){const levelText=lang==='zh'?`（馒头AI体系中为 ${$('courseLevel').value} 级别）`:`(MindDo.AI Curriculum: ${$('courseLevel').value})`;fittedText(levelText,courseX+courseWidth+20,1945,1533-courseX-courseWidth-20,27,20,'700','#6B6760')}
+  wrap($('courseAdvice').value,recX,2008,1533-recX,50,2,lang==='zh'?34:31,'500','#3A372F');
   ctx.strokeStyle='#FFC824';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(84,2208);ctx.lineTo(right,2208);ctx.stroke();
   if(lang==='zh'){
     text('未来已来',84,2335,72,'400','#FFC824','left','"Yipin Qihang","Microsoft YaHei",sans-serif');
