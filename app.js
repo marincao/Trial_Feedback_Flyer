@@ -35,8 +35,47 @@ function text(value,x,y,size,weight='500',color='#3A372F',align='left',family='"
 function measure(value,size,weight='500',family='"Microsoft YaHei","PingFang SC",sans-serif'){ctx.font=`${weight} ${size}px ${family}`;return ctx.measureText(value).width}
 function fittedText(value,x,y,maxWidth,size,minSize,weight='500',color='#3A372F'){let fitted=size;while(fitted>minSize&&measure(value,fitted,weight)>maxWidth)fitted--;text(value,x,y,fitted,weight,color)}
 function wrap(value,x,y,maxWidth,lineHeight,maxLines,size=38,weight='500',color='#3A372F'){ctx.font=`${weight} ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;ctx.fillStyle=color;ctx.textAlign='left';const lines=[];let line='';for(const ch of [...(value||'')]){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){lines.push(line);line=ch}else line=next}if(line)lines.push(line);if(lines.length>maxLines){lines.length=maxLines;let last=lines[maxLines-1];while(ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);lines[maxLines-1]=last+'…'}lines.forEach((item,index)=>ctx.fillText(item,x,y+index*lineHeight));return lines.length}
-function feedbackLines(value,maxWidth,size){ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;const lines=[];for(const paragraph of (value||'').replace(/\u00a0/g,' ').split(/\r?\n/)){if(!paragraph){if(lines.length&&lines.at(-1)!=='')lines.push('');continue}let line='';for(const ch of [...paragraph]){const next=line+ch;if(ctx.measureText(next).width>maxWidth&&line){const space=line.lastIndexOf(' ');if(space>0&&/[A-Za-z]/.test(line)){lines.push(line.slice(0,space));line=line.slice(space+1)+ch}else{lines.push(line);line=ch}}else line=next}if(line)lines.push(line)}return lines}
-function drawFeedback(value,x,y,maxWidth){const maxLines=18;let size=lang==='en'?36:37,lines=feedbackLines(value,maxWidth,size);while(lines.length>maxLines&&size>22){size--;lines=feedbackLines(value,maxWidth,size)}if(lines.length>maxLines){lines.length=maxLines;let last=lines.at(-1);ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;while(ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);lines[maxLines-1]=last+'…'}const lineHeight=lines.length>1?Math.min(Math.round(size*1.48),Math.floor(700/(lines.length-1))):Math.round(size*1.48);ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;ctx.fillStyle='#3A372F';ctx.textAlign='left';lines.forEach((line,index)=>ctx.fillText(line,x,y+index*lineHeight))}
+function feedbackTokens(paragraph){return paragraph.match(/[A-Za-z0-9]+(?:[.'’_-][A-Za-z0-9]+)*|\s+|[^A-Za-z0-9\s]/gu)||[]}
+function feedbackLines(value,maxWidth,size){
+  ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;
+  const paragraphs=(value||'').replace(/\u00a0/g,' ').split(/\r?\n/),lines=[];
+  for(const paragraph of paragraphs){
+    if(!paragraph.trim()){if(lines.length&&lines.at(-1)!==null)lines.push(null);continue}
+    if(lines.length&&lines.at(-1)!==null)lines.push(null);
+    let line='';
+    for(const token of feedbackTokens(paragraph.trim())){
+      if(/^\s+$/.test(token)){if(line&&!line.endsWith(' '))line+=' ';continue}
+      if(ctx.measureText(line+token).width<=maxWidth||!line){line+=token;continue}
+      line=line.trimEnd();
+      if(/^[，。！？；：、）》】」』,.!?;:)]/.test(token)&&line){
+        const tail=line.match(/[A-Za-z0-9]+$|.$/u)?.[0]||'';
+        const head=line.slice(0,-tail.length).trimEnd();
+        if(head)lines.push(head);
+        line=tail+token;
+      }else if(/[（《【「『(]$/.test(line)){
+        const opener=line.slice(-1);line=line.slice(0,-1).trimEnd();if(line)lines.push(line);line=opener+token;
+      }else{lines.push(line);line=token}
+      while(line&&ctx.measureText(line).width>maxWidth){let cut=line.length-1;while(cut>1&&ctx.measureText(line.slice(0,cut)).width>maxWidth)cut--;lines.push(line.slice(0,cut));line=line.slice(cut)}
+    }
+    if(line.trim())lines.push(line.trimEnd());
+  }
+  while(lines.at(-1)===null)lines.pop();
+  return lines;
+}
+function feedbackHeight(lines,lineHeight,paragraphGap){return lines.reduce((height,line,index)=>height+(index?line===null?paragraphGap:lineHeight:0),0)}
+function drawFeedback(value,x,y,maxWidth){
+  const maxHeight=700,minSize=24,maxSize=lang==='en'?36:38;
+  let size=maxSize,lines,lineHeight,paragraphGap;
+  while(true){lines=feedbackLines(value,maxWidth,size);lineHeight=Math.round(size*1.52);paragraphGap=Math.round(lineHeight*.48);if(feedbackHeight(lines,lineHeight,paragraphGap)<=maxHeight||size===minSize)break;size--}
+  ctx.font=`500 ${size}px "Microsoft YaHei","PingFang SC",sans-serif`;ctx.fillStyle='#3A372F';ctx.textAlign='left';
+  if(feedbackHeight(lines,lineHeight,paragraphGap)>maxHeight){
+    while(lines.length>1&&feedbackHeight(lines,lineHeight,paragraphGap)>maxHeight)lines.pop();
+    while(lines.at(-1)===null)lines.pop();
+    let last=lines.at(-1)||'';while(last&&ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);lines[lines.length-1]=last+'…';
+  }
+  let cursorY=y;
+  for(const line of lines){if(line===null){cursorY+=paragraphGap;continue}if(cursorY-y>maxHeight)break;ctx.fillText(line,x,cursorY);cursorY+=lineHeight}
+}
 function formatDate(){const raw=$('classTime').value;if(!raw)return lang==='zh'?'待填写':'Not provided';const d=new Date(raw);if(lang==='en')return `${d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}  ${d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}`;return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日  ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`}
 function draw(){
   ctx.clearRect(0,0,1667,2500);ctx.fillStyle='#fff';ctx.fillRect(0,0,1667,2500);
