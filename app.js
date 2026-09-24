@@ -2,10 +2,11 @@ const recommendations={
   Roblox:{level:'AI Foundation 2',zh:'进一步培养空间与逻辑思维，打好编程基础，为后续 AI 学习做好准备',en:'Build spatial and logical thinking, strengthen programming fundamentals, and prepare for future AI learning.'},
   Scratch:{level:'AI Foundation 1',zh:'通过图形化编程建立逻辑与顺序意识，在创作中掌握基础编程概念',en:'Develop logical and sequential thinking through visual programming while learning core coding concepts through creation.'},
   Minecraft:{level:'AI Foundation 2',zh:'在方块世界中训练空间规划与问题解决能力，逐步建立编程思维',en:'Develop spatial planning and problem-solving skills in a block-based world while building computational thinking.'},
-  Python:{level:'AI Explorer 1',zh:'进入文本编程阶段，系统掌握变量、循环与函数，完成独立项目',en:'Move into text-based programming, master variables, loops, and functions, and complete independent projects.'},
+  Python:{level:'AI Foundation 3',zh:'进入文本编程阶段，系统掌握变量、循环与函数，完成独立项目',en:'Move into text-based programming, master variables, loops, and functions, and complete independent projects.'},
   Java:{level:'AI Builder 1',zh:'建立面向对象与工程化编程基础，为完整软件项目开发做好准备',en:'Build a foundation in object-oriented and engineering-focused programming for complete software projects.'},
   'C++':{level:'AI Challenger 1',zh:'强化严谨的算法与数据结构能力，为进阶开发和竞赛学习打基础',en:'Strengthen algorithms and data structures to prepare for advanced development and programming competitions.'},
-  'AI Native':{level:'',zh:'理解 AI 的核心概念与实际应用，将想法变成真正可用的产品，并逐步成长为能够运用 AI 解决生活、学习和工作中实际问题的创造者。',en:'Understand core AI concepts and real-world applications, turn ideas into useful products, and grow into a creator who uses AI to solve practical problems in life, learning, and work.'}
+  'AI Native':{level:'',zh:'理解 AI 的核心概念与实际应用，将想法变成真正可用的产品，并逐步成长为能够运用 AI 解决生活、学习和工作中实际问题的创造者。',en:'Understand core AI concepts and real-world applications, turn ideas into useful products, and grow into a creator who uses AI to solve practical problems in life, learning, and work.'},
+  'Geometry':{level:'',zh:'巩固几何学概念，检查缺失知识点，深入学习进阶数学概念。', en:'Strengthen geometry concepts, identify and address any knowledge gaps, and explore more advanced mathematical concepts in greater depth'}
 };
 const $=id=>document.getElementById(id);
 const canvas=$('previewCanvas'),ctx=canvas.getContext('2d');
