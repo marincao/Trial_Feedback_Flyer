@@ -5,6 +5,9 @@ const recommendations={
   Python:{level:'AI Foundation 3',zh:'进入文本编程阶段，系统掌握变量、循环与函数，完成独立项目',en:'Move into text-based programming, master variables, loops, and functions, and complete independent projects.'},
   Java:{level:'AI Builder 1',zh:'建立面向对象与工程化编程基础，为完整软件项目开发做好准备',en:'Build a foundation in object-oriented and engineering-focused programming for complete software projects.'},
   'C++':{level:'AI Challenger 1',zh:'强化严谨的算法与数据结构能力，为进阶开发和竞赛学习打基础',en:'Strengthen algorithms and data structures to prepare for advanced development and programming competitions.'},
+  USACO:{level:'',zh:'系统学习算法与数据结构，通过编程竞赛题目提升逻辑推理、问题分析与高效解题能力，为 USACO 竞赛做好准备。',en:'Study algorithms and data structures, strengthen logical reasoning and efficient problem-solving through competition challenges, and prepare for USACO contests.'},
+  Unity:{level:'',zh:'使用 Unity 和 C# 开发互动游戏，学习场景搭建、游戏逻辑与交互设计，将创意转化为可玩的独立项目。',en:'Build interactive games with Unity and C#, learn scene creation, game logic, and interaction design, and turn creative ideas into playable projects.'},
+  'AI Founders':{level:'',zh:'运用 AI 构建网站和应用，从创意构思、原型设计到开发与迭代，将想法转化为能够解决实际问题的产品。',en:'Use AI to build websites and apps, from developing ideas and designing prototypes to building and refining products that solve real-world problems.'},
   'AI Native':{level:'',zh:'理解 AI 的核心概念与实际应用，将想法变成真正可用的产品，并逐步成长为能够运用 AI 解决生活、学习和工作中实际问题的创造者。',en:'Understand core AI concepts and real-world applications, turn ideas into useful products, and grow into a creator who uses AI to solve practical problems in life, learning, and work.'},
   'Geometry':{level:'',zh:'巩固几何学概念，检查缺失知识点，深入学习进阶数学概念。', en:'Strengthen geometry concepts, identify and address any knowledge gaps, and explore more advanced mathematical concepts in greater depth'}
 };
