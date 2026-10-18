@@ -4,6 +4,7 @@ const recommendations={
   Minecraft:{level:'AI Foundation 2',zh:'在方块世界中训练空间规划与问题解决能力，逐步建立编程思维',en:'Develop spatial planning and problem-solving skills in a block-based world while building computational thinking.'},
   Python:{level:'AI Foundation 3',zh:'进入文本编程阶段，系统掌握变量、循环与函数，完成独立项目',en:'Move into text-based programming, master variables, loops, and functions, and complete independent projects.'},
   Java:{level:'AI Builder 1',zh:'建立面向对象与工程化编程基础，为完整软件项目开发做好准备',en:'Build a foundation in object-oriented and engineering-focused programming for complete software projects.'},
+  'AP CSA':{level:'',zh:'系统学习 Java 编程与面向对象思想，通过代码阅读、编程练习与问题分析，巩固计算机科学基础，为 AP Computer Science A 学习与考试做好准备。',en:'Develop Java programming and object-oriented thinking through code reading, coding practice, and problem analysis, strengthening computer science fundamentals for AP Computer Science A coursework and exams.'},
   'C++':{level:'AI Challenger 1',zh:'强化严谨的算法与数据结构能力，为进阶开发和竞赛学习打基础',en:'Strengthen algorithms and data structures to prepare for advanced development and programming competitions.'},
   USACO:{level:'',zh:'系统学习算法与数据结构，通过编程竞赛题目提升逻辑推理、问题分析与高效解题能力，为 USACO 竞赛做好准备。',en:'Study algorithms and data structures, strengthen logical reasoning and efficient problem-solving through competition challenges, and prepare for USACO contests.'},
   Unity:{level:'',zh:'使用 Unity 和 C# 开发互动游戏，学习场景搭建、游戏逻辑与交互设计，将创意转化为可玩的独立项目。',en:'Build interactive games with Unity and C#, learn scene creation, game logic, and interaction design, and turn creative ideas into playable projects.'},
