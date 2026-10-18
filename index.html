@@ -20,15 +20,15 @@
         <fieldset>
           <legend id="studentLegend">学生与课程</legend>
           <div class="field-grid">
-            <label><span id="studentNameLabel">学生姓名</span><input id="studentName" value="小宇" maxlength="24" /></label>
-            <label><span id="trialNameLabel">试听课名称</span><input id="trialName" value="Roblox" maxlength="40" /></label>
+            <label><span id="studentNameLabel">学生姓名</span><input id="studentName" value="" maxlength="24" /></label>
+            <label><span id="trialNameLabel">试听课名称</span><input id="trialName" value="" maxlength="40" /></label>
             <label><span id="classTimeLabel">日期与时间</span><input id="classTime" type="datetime-local" /></label>
-            <label><span id="teacherNameLabel">试听课程老师</span><input id="teacherName" value="Mia老师" maxlength="32" /></label>
+            <label><span id="teacherNameLabel">试听课程老师</span><input id="teacherName" value="" maxlength="32" /></label>
           </div>
         </fieldset>
         <fieldset>
           <legend id="feedbackLegend">教师评价</legend>
-          <label><span id="feedbackLabel">老师的反馈原文</span><textarea id="teacherFeedback" rows="10" maxlength="1500">小宇今天的课堂状态非常棒！能够快速理解角色移动和坐标的关系，并主动尝试用不同方式完成任务。遇到问题时愿意先观察、再调试，展现出了很好的逻辑思维和创造力。期待下次看到你搭建出更有趣的世界！</textarea></label>
+          <label><span id="feedbackLabel">老师的反馈原文</span><textarea id="teacherFeedback" rows="10" maxlength="1500"></textarea></label>
           <div class="char-count"><span id="charCount">0</span> / 1500</div>
         </fieldset>
         <fieldset>
@@ -42,12 +42,12 @@
       </form>
 
       <section class="preview-panel" aria-label="反馈图预览">
-        <div class="preview-toolbar"><span id="previewTitle">反馈图预览</span><button id="resetBtn" type="button">恢复示例</button></div>
+        <div class="preview-toolbar"><span id="previewTitle">反馈图预览</span><button id="resetBtn" type="button">重置表单</button></div>
         <canvas id="previewCanvas" width="1667" height="2500"></canvas>
       </section>
     </div>
   </main>
   <div class="toast" id="toast" role="status">图片已下载</div>
-  <script src="app.js?v=20261018-1"></script>
+  <script src="app.js?v=20261018-2"></script>
 </body>
 </html>
